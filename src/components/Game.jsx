@@ -5,11 +5,21 @@ import { generatePatterns } from "../utils/patternGenerator";
 class Game extends React.Component {
   state = {
     cells: Array(9)
-      .fill({ isClicked: false, player: "" })
+      .fill({ isClicked: false, player: undefined })
       .map((cell, index) => ({ ...cell, key: (index + 1) * 10 })),
     turn: "X",
   };
   winningPatterns = generatePatterns();
+  componentDidUpdate = () => {
+    if (!this.isTie()) {
+      const winner = this.checkWinner();
+      if (winner) {
+        console.log("Winner " + winner);
+      }
+    } else {
+      console.log("tie");
+    }
+  };
   handleClick = (e) => {
     const cellId = e.target.dataset.cellId;
     if (cellId) {
@@ -28,6 +38,25 @@ class Game extends React.Component {
         });
       }
     }
+  };
+  checkWinner = () => {
+    const { cells } = this.state;
+    for (let i = 0; i < this.winningPatterns.length; i++) {
+      const pattern = this.winningPatterns[i];
+      if (
+        cells[pattern[0]].player === cells[pattern[1]].player &&
+        cells[pattern[1]].player === cells[pattern[2]].player
+      ) {
+        const winner = cells[pattern[0]].player;
+        if (winner) {
+          return winner;
+        }
+      }
+    }
+    return undefined;
+  };
+  isTie = () => {
+    return this.state.cells.every((cell) => cell.player);
   };
   render() {
     const { cells, turn } = this.state;
