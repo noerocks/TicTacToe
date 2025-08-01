@@ -8,16 +8,20 @@ class Game extends React.Component {
       .fill({ isClicked: false, player: undefined })
       .map((cell, index) => ({ ...cell, key: (index + 1) * 10 })),
     turn: "X",
+    isPlaying: true,
+    message: undefined,
   };
   winningPatterns = generatePatterns();
   componentDidUpdate = () => {
-    if (!this.isTie()) {
+    if (!this.isTie() && this.state.isPlaying) {
       const winner = this.checkWinner();
       if (winner) {
-        console.log("Winner " + winner);
+        this.setState({ isPlaying: false, message: `Player ${winner} wins` });
       }
     } else {
-      console.log("tie");
+      if (this.state.isPlaying) {
+        this.setState({ isPlaying: false, message: "Tie" });
+      }
     }
   };
   handleClick = (e) => {
@@ -58,8 +62,18 @@ class Game extends React.Component {
   isTie = () => {
     return this.state.cells.every((cell) => cell.player);
   };
+  resetGame = () => {
+    this.setState({
+      cells: Array(9)
+        .fill({ isClicked: false, player: undefined })
+        .map((cell, index) => ({ ...cell, key: (index + 1) * 10 })),
+      turn: "X",
+      isPlaying: true,
+      message: undefined,
+    });
+  };
   render() {
-    const { cells, turn } = this.state;
+    const { cells, turn, message, isPlaying } = this.state;
     return (
       <div
         onClick={this.handleClick}
@@ -70,7 +84,29 @@ class Game extends React.Component {
             <Cell key={cell.key} cell={cell} />
           ))}
         </div>
-        <p className="text-3xl text-gray-400">{`Player ${turn}'s turn`}</p>
+        <div className="w-full flex justify-center gap-5 items-center">
+          {isPlaying ? (
+            <React.Fragment>
+              <p className="text-3xl text-gray-400">{`Player ${turn}'s turn`}</p>
+              <button
+                onClick={this.resetGame}
+                className="text-2xl text-gray-200 bg-gray-500 py-2 px-5 rounded-md cursor-pointer hover:scale-102"
+              >
+                Reset
+              </button>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <p className="text-3xl text-gray-400">{message}</p>
+              <button
+                onClick={this.resetGame}
+                className="text-2xl text-gray-200 bg-gray-500 py-2 px-5 rounded-md cursor-pointer hover:scale-102"
+              >
+                Play again
+              </button>
+            </React.Fragment>
+          )}
+        </div>
       </div>
     );
   }
