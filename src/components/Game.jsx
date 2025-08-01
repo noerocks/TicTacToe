@@ -10,13 +10,19 @@ class Game extends React.Component {
     turn: "X",
     isPlaying: true,
     message: undefined,
+    winningPattern: undefined,
   };
   winningPatterns = generatePatterns();
   componentDidUpdate = () => {
     if (!this.isTie() && this.state.isPlaying) {
-      const winner = this.checkWinner();
-      if (winner) {
-        this.setState({ isPlaying: false, message: `Player ${winner} wins` });
+      const result = this.checkWinner();
+      if (result) {
+        const { pattern, winner } = result;
+        this.setState({
+          isPlaying: false,
+          message: `Player ${winner} wins`,
+          winningPattern: pattern,
+        });
       }
     } else {
       if (this.state.isPlaying) {
@@ -25,12 +31,14 @@ class Game extends React.Component {
     }
   };
   handleClick = (e) => {
-    const cellId = e.target.dataset.cellId;
-    if (cellId && this.state.isPlaying) {
-      if (!this.state.cells.filter((cell) => cell.key == cellId)[0].isClicked) {
+    const cellIndex = e.target.dataset.cellIndex;
+    if (cellIndex && this.state.isPlaying) {
+      if (
+        !this.state.cells.filter((_, index) => index == cellIndex)[0].isClicked
+      ) {
         this.setState((prevState) => {
-          const nextPrevs = [...prevState.cells].map((cell) =>
-            cellId == cell.key
+          const nextCells = [...prevState.cells].map((cell, index) =>
+            cellIndex == index
               ? {
                   isClicked: true,
                   player: prevState.turn,
@@ -38,7 +46,7 @@ class Game extends React.Component {
                 }
               : cell
           );
-          return { cells: nextPrevs, turn: prevState.turn === "X" ? "O" : "X" };
+          return { cells: nextCells, turn: prevState.turn === "X" ? "O" : "X" };
         });
       }
     }
@@ -53,7 +61,7 @@ class Game extends React.Component {
       ) {
         const winner = cells[pattern[0]].player;
         if (winner) {
-          return winner;
+          return { pattern, winner };
         }
       }
     }
@@ -73,15 +81,20 @@ class Game extends React.Component {
     });
   };
   render() {
-    const { cells, turn, message, isPlaying } = this.state;
+    const { cells, turn, message, isPlaying, winningPattern } = this.state;
     return (
       <div
         onClick={this.handleClick}
         className="flex flex-col justify-center items-center gap-10"
       >
         <div className="grid grid-cols-3 gap-2 bg-gray-600">
-          {cells.map((cell) => (
-            <Cell key={cell.key} cell={cell} />
+          {cells.map((cell, index) => (
+            <Cell
+              key={cell.key}
+              index={index}
+              cell={cell}
+              winningPattern={winningPattern}
+            />
           ))}
         </div>
         <div className="w-full flex justify-center gap-5 items-center">
