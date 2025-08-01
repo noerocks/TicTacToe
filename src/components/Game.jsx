@@ -12,9 +12,11 @@ class Game extends React.Component {
     message: undefined,
     winningPattern: undefined,
   };
+
   winningPatterns = generatePatterns();
+
   componentDidUpdate = () => {
-    if (!this.isTie() && this.state.isPlaying) {
+    if (this.state.isPlaying) {
       const result = this.checkWinner();
       if (result) {
         const { pattern, winner } = result;
@@ -25,11 +27,12 @@ class Game extends React.Component {
         });
       }
     } else {
-      if (this.state.isPlaying) {
+      if (this.state.isPlaying && this.noSpace()) {
         this.setState({ isPlaying: false, message: "Tie" });
       }
     }
   };
+
   handleClick = (e) => {
     const cellIndex = e.target.dataset.cellIndex;
     if (cellIndex && this.state.isPlaying) {
@@ -51,6 +54,7 @@ class Game extends React.Component {
       }
     }
   };
+
   checkWinner = () => {
     const { cells } = this.state;
     for (let i = 0; i < this.winningPatterns.length; i++) {
@@ -67,9 +71,11 @@ class Game extends React.Component {
     }
     return undefined;
   };
-  isTie = () => {
+
+  noSpace = () => {
     return this.state.cells.every((cell) => cell.player);
   };
+
   resetGame = () => {
     this.setState({
       cells: Array(9)
@@ -80,6 +86,7 @@ class Game extends React.Component {
       message: undefined,
     });
   };
+
   render() {
     const { cells, turn, message, isPlaying, winningPattern } = this.state;
     return (
@@ -94,6 +101,7 @@ class Game extends React.Component {
               index={index}
               cell={cell}
               winningPattern={winningPattern}
+              isPlaying={isPlaying}
             />
           ))}
         </div>

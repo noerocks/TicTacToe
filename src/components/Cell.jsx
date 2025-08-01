@@ -5,13 +5,24 @@ class Cell extends React.Component {
     super(props);
     this.state = { isWinningCell: false };
   }
+
   static getDerivedStateFromProps = (nextProps) => {
-    console.log(nextProps);
-    return null;
+    const { index, winningPattern, isPlaying } = nextProps;
+    if (isPlaying) {
+      return { isWinningCell: false };
+    }
+    return {
+      isWinningCell: winningPattern.some((element) => element === index),
+    };
   };
-  shouldComponentUpdate = (nextProps) => {
-    return this.props.cell.player !== nextProps.cell.player;
+
+  shouldComponentUpdate = (nextProps, nextState) => {
+    return (
+      this.props.cell.player !== nextProps.cell.player ||
+      nextState.isWinningCell
+    );
   };
+
   render() {
     const {
       index,
@@ -20,7 +31,8 @@ class Cell extends React.Component {
     return (
       <div
         data-cell-index={index}
-        className="bg-gray-800 hover:cursor-pointer w-[165px] aspect-square flex justify-center items-center"
+        className={`hover:cursor-pointer w-[165px] aspect-square flex justify-center items-center
+         ${this.state.isWinningCell ? "bg-gray-700 " : "bg-gray-800"}`}
       >
         <p
           className={`permanent-marker-regular text-8xl select-none pointer-events-none ${
