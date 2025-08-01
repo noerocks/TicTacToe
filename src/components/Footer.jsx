@@ -4,7 +4,7 @@ class Footer extends React.Component {
   render() {
     return (
       <div>
-        <p className="text-gray-200 p-2">
+        <p className="text-gray-300 p-2">
           {`${String.fromCharCode(
             0x00a9
           )} 2025 Noe Villamor. Built with ${String.fromCharCode(

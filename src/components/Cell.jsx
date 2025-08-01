@@ -5,9 +5,19 @@ class Cell extends React.Component {
     super(props);
   }
   render() {
+    const { key, player } = this.props.cell;
     return (
-      <div className="p-10 bg-gray-800 hover:cursor-pointer">
-        <p className="text-6xl select-none">{this.props.cell.key}</p>
+      <div
+        data-cell-id={key}
+        className="bg-gray-800 hover:cursor-pointer w-[165px] aspect-square flex justify-center items-center"
+      >
+        <p
+          className={`text-8xl select-none pointer-events-none ${
+            player === "O" ? "text-blue-900" : "text-red-900"
+          }`}
+        >
+          {player}
+        </p>
       </div>
     );
   }
