@@ -1,6 +1,7 @@
 import React from "react";
 import Cell from "./Cell";
 import { generatePatterns } from "../utils/patternGenerator";
+import ConfettiExplosion from "react-confetti-explosion";
 
 class Game extends React.Component {
   state = {
@@ -105,7 +106,7 @@ class Game extends React.Component {
             />
           ))}
         </div>
-        <div className="w-full flex justify-center gap-5 items-center">
+        <div className="w-full relative flex justify-center gap-5 items-center">
           {isPlaying ? (
             <React.Fragment>
               <p className="text-3xl text-gray-400">{`Player ${turn}'s turn`}</p>
@@ -118,6 +119,7 @@ class Game extends React.Component {
             </React.Fragment>
           ) : (
             <React.Fragment>
+              <ConfettiExplosion className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
               <p className="text-3xl text-gray-400">{message}</p>
               <button
                 onClick={this.resetGame}
