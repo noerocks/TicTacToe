@@ -8,8 +8,8 @@ class Game extends React.Component {
       .fill({ isClicked: false, player: "" })
       .map((cell, index) => ({ ...cell, key: (index + 1) * 10 })),
     turn: "X",
-    patterns: generatePatterns(),
   };
+  winningPatterns = generatePatterns();
   handleClick = (e) => {
     const cellId = e.target.dataset.cellId;
     if (cellId) {
