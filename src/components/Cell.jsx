@@ -4,8 +4,12 @@ class Cell extends React.Component {
   constructor(props) {
     super(props);
   }
+  shouldComponentUpdate = (nextProps) => {
+    return this.props.cell.player !== nextProps.cell.player;
+  };
   render() {
     const { key, player } = this.props.cell;
+    console.log("cell " + key);
     return (
       <div
         data-cell-id={key}
