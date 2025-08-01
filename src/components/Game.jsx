@@ -1,5 +1,6 @@
 import React from "react";
 import Cell from "./Cell";
+import { generatePatterns } from "../utils/patternGenerator";
 
 class Game extends React.Component {
   state = {
@@ -7,6 +8,7 @@ class Game extends React.Component {
       .fill({ isClicked: false, player: "" })
       .map((cell, index) => ({ ...cell, key: (index + 1) * 10 })),
     turn: "X",
+    patterns: generatePatterns(),
   };
   handleClick = (e) => {
     const cellId = e.target.dataset.cellId;

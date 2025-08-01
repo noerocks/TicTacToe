@@ -12,7 +12,7 @@ class Cell extends React.Component {
         className="bg-gray-800 hover:cursor-pointer w-[165px] aspect-square flex justify-center items-center"
       >
         <p
-          className={`text-8xl select-none pointer-events-none ${
+          className={`permanent-marker-regular text-8xl select-none pointer-events-none ${
             player === "O" ? "text-blue-900" : "text-red-900"
           }`}
         >
