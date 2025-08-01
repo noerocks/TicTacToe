@@ -26,7 +26,7 @@ class Game extends React.Component {
   };
   handleClick = (e) => {
     const cellId = e.target.dataset.cellId;
-    if (cellId) {
+    if (cellId && this.state.isPlaying) {
       if (!this.state.cells.filter((cell) => cell.key == cellId)[0].isClicked) {
         this.setState((prevState) => {
           const nextPrevs = [...prevState.cells].map((cell) =>

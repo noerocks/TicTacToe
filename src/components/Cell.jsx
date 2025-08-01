@@ -9,7 +9,6 @@ class Cell extends React.Component {
   };
   render() {
     const { key, player } = this.props.cell;
-    console.log("cell " + key);
     return (
       <div
         data-cell-id={key}
