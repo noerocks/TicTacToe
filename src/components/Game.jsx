@@ -2,6 +2,8 @@ import React from "react";
 import Cell from "./Cell";
 import { generatePatterns } from "../utils/patternGenerator";
 import ConfettiExplosion from "react-confetti-explosion";
+import clickSound from "../assets/click.mp3";
+import winnerSound from "../assets/winner.mp3";
 
 class Game extends React.Component {
   state = {
@@ -20,15 +22,15 @@ class Game extends React.Component {
     if (this.state.isPlaying) {
       const result = this.checkWinner();
       if (result) {
+        new Audio(winnerSound).play();
         const { pattern, winner } = result;
         this.setState({
           isPlaying: false,
           message: `Player ${winner} wins`,
           winningPattern: pattern,
         });
-      }
-    } else {
-      if (this.state.isPlaying && this.noSpace()) {
+      } else if (this.noSpace()) {
+        console.log("tie");
         this.setState({ isPlaying: false, message: "Tie" });
       }
     }
@@ -40,6 +42,7 @@ class Game extends React.Component {
       if (
         !this.state.cells.filter((_, index) => index == cellIndex)[0].isClicked
       ) {
+        new Audio(clickSound).play();
         this.setState((prevState) => {
           const nextCells = [...prevState.cells].map((cell, index) =>
             cellIndex == index
@@ -85,6 +88,7 @@ class Game extends React.Component {
       turn: "X",
       isPlaying: true,
       message: undefined,
+      winningPattern: undefined,
     });
   };
 
@@ -119,7 +123,9 @@ class Game extends React.Component {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              <ConfettiExplosion className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+              {winningPattern && (
+                <ConfettiExplosion className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+              )}
               <p className="text-3xl text-gray-400">{message}</p>
               <button
                 onClick={this.resetGame}

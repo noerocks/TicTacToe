@@ -12,7 +12,9 @@ class Cell extends React.Component {
       return { isWinningCell: false };
     }
     return {
-      isWinningCell: winningPattern.some((element) => element === index),
+      isWinningCell: Boolean(
+        winningPattern?.some((element) => element === index)
+      ),
     };
   };
 
