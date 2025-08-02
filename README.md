@@ -20,7 +20,7 @@ A simple, interactive 3x3 Tic Tac Toe game built with **React** and styled with 
 - 🤝 Tie game detection
 - 🔁 Reset and replay functionality
 - 🎉 Confetti explosion on win (using `react-confetti-explosion`)
-- 🎵 Sound effects (optional via Web Audio API)
+- 🎵 Sound effects
 - 🧩 Component-based structure with clean logic
 
 ---
