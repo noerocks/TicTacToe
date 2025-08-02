@@ -1,12 +1,44 @@
-# React + Vite
+# 🧠 Tic Tac Toe – React Edition
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple, interactive 3x3 Tic Tac Toe game built with **React** and styled with **Tailwind CSS**. Features include turn-based logic, win detection, tie logic, and a reset mechanism.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📸 App Preview
 
-## Expanding the ESLint configuration
+<p align="center">
+  <img src="Screenshot 2025-08-02 084750.png" alt="Tic Tac Toe Screenshot" width="500" />
+</p>
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🚀 Features
+
+- ✅ Clickable 3x3 game board
+- 🎮 Alternating turns between Player X and Player O
+- 🏆 Win detection for horizontal, vertical, and diagonal patterns
+- 🤝 Tie game detection
+- 🔁 Reset and replay functionality
+- 🎉 Confetti explosion on win (using `react-confetti-explosion`)
+- 🎵 Sound effects (optional via Web Audio API)
+- 🧩 Component-based structure with clean logic
+
+---
+
+## 🛠️ Technologies
+
+- React (Class Components)
+- Tailwind CSS
+- Vite (or Create React App)
+- react-confetti-explosion
+
+---
+
+## 📦 Installation
+
+```bash
+git clone https://github.com/noerocks/TicTacToe.git
+cd TicTacToe
+npm install
+npm run dev   # or npm start
+```
