@@ -29,7 +29,7 @@ A simple, interactive 3x3 Tic Tac Toe game built with **React** and styled with 
 
 - React (Class Components)
 - Tailwind CSS
-- Vite (or Create React App)
+- Vite
 - react-confetti-explosion
 
 ---
