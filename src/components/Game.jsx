@@ -2,8 +2,8 @@ import React from "react";
 import Cell from "./Cell";
 import { generatePatterns } from "../utils/patternGenerator";
 import ConfettiExplosion from "react-confetti-explosion";
-import clickSound from "../assets/click.mp3";
-import winnerSound from "../assets/winner.mp3";
+import clickSound from "/click.mp3";
+import winnerSound from "/winner.mp3";
 
 class Game extends React.Component {
   state = {
